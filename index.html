@@ -40,24 +40,32 @@
       var dayEnd = 17;
 
       for (var i=dayStart; i<=dayEnd; i++) {
-        var timeSlot = $('<div class="row">');
+        var timeSlot = $('<div class="row g-0">');
         timeSlot.attr("data-time", i);
 
         var hourFormat = moment().hour(i).format("hA");
         timeSlot.attr("id", hourFormat);
 
-        var col1 = $('<div class="col-2">');
+        var col1 = $('<div class="col-1">');
         timeSlot.append(col1);
-        var col2 = $('<div class="col-8">');
+        var col2 = $('<div class="col-10">');
         col2.attr("id", i);
         timeSlot.append(col2);
-        var col3 = $('<div class="col-2">');
+        var col3 = $('<div class="col-1">');
         timeSlot.append(col3);
 
         var hourEl = $("<div>");
         hourEl.addClass("hour");
         hourEl.text(hourFormat);
-        col1.append(hourEl);        
+        col1.append(hourEl);
+
+        var textEl = $('<textarea type="text">');
+        col2.append(textEl);
+
+        var saveEl = $('<div class="saveBtn">');
+        col3.append(saveEl);
+        var lockIcon = $('<i class="fas fa-lock">');
+        saveEl.append(lockIcon);
 
         $(".container").append(timeSlot);
       }
