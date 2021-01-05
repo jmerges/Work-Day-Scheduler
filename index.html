@@ -28,36 +28,7 @@
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
     </header>
-    <div class="container">
-      <!-- Timeblocks go here -->
-      <div class="row" id="9AM">
-        <div id="9"></div>
-      </div>
-      <div class="row" id="10AM">
-        <div id="10"></div>
-      </div>
-      <div class="row" id="11AM">
-        <div id="11"></div>
-      </div>
-      <div class="row" id="12PM">
-        <div id="12"></div>
-      </div>
-      <div class="row" id="1PM">
-        <div id="13"></div>
-      </div>
-      <div class="row" id="2PM">
-        <div id="14"></div>
-      </div>
-      <div class="row" id="3PM">
-        <div id="15"></div>
-      </div>
-      <div class="row" id="4PM">
-        <div id="16"></div>
-      </div>
-      <div class="row" id="5PM">
-        <div id="17"></div>
-      </div>
-    </div>
+    <div class="container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -65,6 +36,33 @@
       // Display Current Day
       $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
+      var dayStart = 9;
+      var dayEnd = 17;
+
+      for (var i=dayStart; i<=dayEnd; i++) {
+        var timeSlot = $('<div class="row">');
+        timeSlot.attr("data-time", i);
+
+        var hourFormat = moment().hour(i).format("hA");
+        timeSlot.attr("id", hourFormat);
+
+        var col1 = $('<div class="col-2">');
+        timeSlot.append(col1);
+        var col2 = $('<div class="col-8">');
+        timeSlot.append(col2);
+        var col3 = $('<div class="col-2">');
+        timeSlot.append(col3);
+
+        var hourEl = $("<div>");
+        hourEl.addClass("hour");
+        hourEl.text(hourFormat);
+        col1.append(hourEl);
+        
+
+        $(".container").append(timeSlot);
+      }
+
+      // Ddecides if a row is past, present, or future
       for (var i=9; i<$(".container").children().length+9; i++) {
         var currentHour = parseInt(moment().format("k"));
         var currentEl = $("#"+i);
