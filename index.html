@@ -30,15 +30,33 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-      <div class="row" id="9" data-hour="9AM"></div>
-      <div class="row" id="10" data-hour="10AM"></div>
-      <div class="row" id="11" data-hour="11AM"></div>
-      <div class="row" id="12" data-hour="12PM"></div>
-      <div class="row" id="1" data-hour="1PM"></div>
-      <div class="row" id="2" data-hour="2PM"></div>
-      <div class="row" id="3" data-hour="3PM"></div>
-      <div class="row" id="4" data-hour="4PM"></div>
-      <div class="row" id="5" data-hour="5PM"></div>
+      <div class="row" id="9AM">
+        <div id="9"></div>
+      </div>
+      <div class="row" id="10AM">
+        <div id="10"></div>
+      </div>
+      <div class="row" id="11AM">
+        <div id="11"></div>
+      </div>
+      <div class="row" id="12PM">
+        <div id="12"></div>
+      </div>
+      <div class="row" id="1PM">
+        <div id="13"></div>
+      </div>
+      <div class="row" id="2PM">
+        <div id="14"></div>
+      </div>
+      <div class="row" id="3PM">
+        <div id="15"></div>
+      </div>
+      <div class="row" id="4PM">
+        <div id="16"></div>
+      </div>
+      <div class="row" id="5PM">
+        <div id="17"></div>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -46,6 +64,20 @@
     <script>
       // Display Current Day
       $("#currentDay").text(moment().format("dddd, MMMM Do"));
+
+      for (var i=9; i<$(".container").children().length+9; i++) {
+        var currentHour = parseInt(moment().format("k"));
+        var currentEl = $("#"+i);
+        if (i < currentHour) {
+          currentEl.addClass("past");
+        }
+        else if (i > currentHour) {
+          currentEl.addClass("future");
+        }
+        else {
+          currentEl.addClass("present");
+        }
+      }
     </script>
   </body>
 </html>
