@@ -44,10 +44,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
-      // List of months for easy access with moment.js
-      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      console.log(moment());
-      console.log(months.length);
+      // Display Current Day
+      $("#currentDay").text(moment().format("dddd, MMMM Do"));
     </script>
   </body>
 </html>
