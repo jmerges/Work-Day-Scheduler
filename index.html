@@ -36,9 +36,36 @@
       // Display Current Day
       $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
+      // Global variable to track which day data was stored in localstorage
+      //  to prevent loading the previous day's calender on a new day
+      var storageDay = moment().date();
+
       var dayStart = 9;
       var dayEnd = 17;
 
+      // Function to save calender data to local storage
+      function save (event) {
+        var timeRow = $(this).data("time");
+        var text = $("#"+timeRow).children(0).val();
+        console.log(text);
+        // update storageDay each time a row is saved,
+        //  then save the row in localstorage
+        storageDay = moment().date();
+        localStorage.setItem("storageDay", storageDay);
+        localStorage.setItem(timeRow, text);        
+      }
+
+      function renderStorage () {
+        var dayCheck = localStorage.getItem("storageDay");
+        if (dayCheck==storageDay) {
+          for (var i=dayStart; i<dayEnd; i++) {
+            var content = localStorage.getItem(i);
+            $("#"+i).children(0).text(content);
+          }
+        }
+      }
+
+      // Dynamically generate timeslots
       for (var i=dayStart; i<=dayEnd; i++) {
         var timeSlot = $('<div class="row g-0">');
         timeSlot.attr("data-time", i);
@@ -63,14 +90,16 @@
         col2.append(textEl);
 
         var saveEl = $('<div class="saveBtn">');
+        saveEl.attr("data-time", i);
         col3.append(saveEl);
         var lockIcon = $('<i class="fas fa-lock">');
         saveEl.append(lockIcon);
+        saveEl.on("click", save);
 
         $(".container").append(timeSlot);
       }
 
-      // Ddecides if a row is past, present, or future
+      // Decides if a row is past, present, or future
       for (var i=9; i<$(".container").children().length+9; i++) {
         var currentHour = parseInt(moment().format("k"));
         var currentEl = $("#"+i);
@@ -84,6 +113,8 @@
           currentEl.addClass("present");
         }
       }
+
+      renderStorage();
     </script>
   </body>
 </html>
