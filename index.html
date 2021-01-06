@@ -55,6 +55,7 @@
         localStorage.setItem(timeRow, text);        
       }
 
+      // Renders localStorage data onto the timeslots
       function renderStorage () {
         var dayCheck = localStorage.getItem("storageDay");
         if (dayCheck==storageDay) {
@@ -67,12 +68,14 @@
 
       // Dynamically generate timeslots
       for (var i=dayStart; i<=dayEnd; i++) {
+        // Timeslot row container and moment() formatting
         var timeSlot = $('<div class="row g-0">');
         timeSlot.attr("data-time", i);
 
         var hourFormat = moment().hour(i).format("hA");
         timeSlot.attr("id", hourFormat);
 
+        // Column layout
         var col1 = $('<div class="col-1">');
         timeSlot.append(col1);
         var col2 = $('<div class="col-10">');
@@ -81,14 +84,17 @@
         var col3 = $('<div class="col-1">');
         timeSlot.append(col3);
 
+        // Hour display
         var hourEl = $("<div>");
         hourEl.addClass("hour");
         hourEl.text(hourFormat);
         col1.append(hourEl);
 
+        // Text input area
         var textEl = $('<textarea type="text">');
         col2.append(textEl);
 
+        // Save Button
         var saveEl = $('<div class="saveBtn">');
         saveEl.attr("data-time", i);
         col3.append(saveEl);
